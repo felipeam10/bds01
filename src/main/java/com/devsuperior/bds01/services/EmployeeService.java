@@ -28,4 +28,14 @@ public class EmployeeService {
         return page.map(x -> new EmployeeDTO(x));
     }
 
+    @Transactional
+    public EmployeeDTO insert(EmployeeDTO dto) {
+        Employee entity = new Employee();
+        entity.setName(dto.getName());
+        entity.setEmail(dto.getEmail());
+        entity.setDepartment(new Department(dto.getDepartmentId(), null));
+        entity =  repository.save(entity);
+        return new EmployeeDTO(entity);
+    }
+
 }
